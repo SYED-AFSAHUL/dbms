@@ -1,8 +1,10 @@
+//query to get driver id
 1)select count(distinct owns.driver_id) from owns, participated,accident where owns.driver_id = participated.driver_id and accident.accd_date = 2000 and accident.report_number = participated.report_number;
 
+//query to get person details
 2)select d.name as owners_name, count(p.driver_id) as no_of_accidents, sum(p.damage_amount) as total_damage from person d , participated p where d.driver_id = p.driver_id group by p.driver_id order by total_damage ;
 
-3)select d.name as owners_name, count(p.driver_id) as no_of_accidents, sum(p.damage_amount) as total_damage from person d , participated p where d.driver_id = p.driver_id group by p.driver_id order by total_damage ;
+3)select d.name as owners_name, count(p.driver_id) as no_of_accidents, avg(p.damage_amount) as total_damage from person, participated p where d.driver_id = p.driver_id group by p.driver_id order by total_damage;
 
-4)select p.driver_id from participated p, accident d where p.report_number = d.report_number and (select count(driver_id) from participated group by driver_id) >=1;
+4)select p.driver_id from participated p, accident d where p.report_number = d.report_number and (select count(driver_id) from participated group by driver_id) <=1;
 
